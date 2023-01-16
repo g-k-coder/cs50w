@@ -1,0 +1,158 @@
+@font-face {
+  font-family: "Product Sans Bold";
+  src: url("product-sans/Bold.ttf");
+}
+@font-face {
+  font-family: "Product Sans Regular";
+  src: url("product-sans/Regular.ttf");
+}
+* {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #e8eaed;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(32, 33, 36);
+  min-height: 100vh;
+  height: 100vh;
+  padding: 0;
+}
+
+nav {
+  padding: 20px;
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  list-style: none;
+}
+nav ul li:last-child {
+  margin-left: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: #e8eaed;
+}
+
+a:hover, a:active {
+  color: #e8eaed;
+  padding-bottom: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+main {
+  width: 100vh;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: auto;
+}
+
+#logo {
+  font-family: "Product Sans Regular";
+  font-size: 85px;
+}
+
+#logo:hover {
+  cursor: default;
+}
+
+form[action="https://www.google.com/search"] {
+  margin: auto;
+}
+
+#search-bar {
+  width: 40rem !important;
+  height: 45px;
+  border-radius: 20px;
+  padding: 0;
+  padding-left: 5px;
+  padding-right: 3px;
+  border: 1px solid #8a8a8a;
+  background-color: transparent;
+}
+
+#search-bar > * {
+  background-color: transparent;
+}
+
+#search-icon {
+  padding-left: auto;
+}
+
+input[type=text] {
+  caret-color: white;
+}
+
+button, input[type=submit] {
+  margin: 11px;
+  margin-top: 30px;
+  padding: 8px 16px;
+  background-color: #303134;
+  border: none;
+  border-radius: 4px;
+}
+
+input[value="Google Search"] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type=text] {
+  width: 80%;
+  color: white !important;
+  padding-left: 20px;
+}
+
+input[type=text],
+input[type=text]:hover,
+input[type=text]:focus {
+  border: none;
+  box-shadow: none;
+  --webkit-appearance: none;
+}
+
+button:hover, input[type=submit]:hover {
+  box-sizing: border-box;
+  box-shadow: inset 0px 0px 0px 0.5px #8a8a8a;
+  cursor: pointer;
+}
+
+#search-bar:hover,
+#search-bar:focus {
+  background-color: #313235;
+  border: 1px solid #313235;
+}
+
+#search-bar:focus {
+  box-shadow: none;
+  --webkit-appearance: none;
+}
+
+footer {
+  font-size: 10px;
+  width: 100%;
+  background-color: rgb(22, 21, 21);
+}
+footer *,
+footer a:hover {
+  color: #909294;
+}
+footer #main-footer {
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: none;
+  justify-content: space-between;
+}
+
+footer > div:first-child {
+  padding: 15px 30px;
+  border: 1px solid rgb(32, 33, 36);
+}/*# sourceMappingURL=sass.css.map */

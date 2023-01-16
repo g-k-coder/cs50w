@@ -1,0 +1,295 @@
+@font-face {
+  font-family: 'Product Sans Bold';
+  src: url("product-sans/Bold.ttf"); }
+@font-face {
+  font-family: 'Product Sans Regular';
+  src: url("product-sans/Regular.ttf"); }
+* {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #e8eaed; }
+
+html, body {
+  width: 100%;
+  height: 100%; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #202124;
+  min-height: 100vh;
+  height: 100vh;
+  padding: 0;
+  width: 100%; }
+
+[class="container column"] {
+  width: 100%; }
+
+nav {
+  padding: 20px; }
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    list-style: none; }
+    nav ul li:last-child {
+      margin-left: 15px; }
+
+a {
+  text-decoration: none;
+  color: #e8eaed; }
+
+a:hover, a:active {
+  color: #e8eaed;
+  padding-bottom: 0;
+  text-decoration: underline;
+  cursor: pointer; }
+
+main {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+form {
+  margin-bottom: auto;
+  margin-top: 20em; }
+
+#logo {
+  font-family: 'Product Sans Regular';
+  font-size: 85px;
+  margin-top: 10rem; }
+
+#logo:hover {
+  cursor: default; }
+
+#search-bar {
+  width: 41.7rem !important;
+  height: 44px;
+  border-radius: 20px;
+  padding: 0 3px 0 5px;
+  margin: 10.5px;
+  border: 1px solid #535353;
+  background-color: transparent; }
+
+#search-bar > * {
+  background-color: transparent; }
+
+#search-icon {
+  padding-left: auto; }
+
+input[type='text'] {
+  caret-color: white; }
+
+button, input[type="submit"] {
+  margin: 11px 5.5px;
+  margin-top: 22px;
+  padding: 8px 16px;
+  background-color: #303134;
+  border: none;
+  border-radius: 4px;
+  width: fit-content; }
+
+#searches {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: auto;
+  width: 274px; }
+
+input[type="text"] {
+  width: 82%;
+  color: white !important;
+  padding-left: 20px; }
+
+input[type="text"],
+input[type="text"]:hover,
+input[type="text"]:focus {
+  border: none;
+  box-shadow: none;
+  --webkit-appearance: none; }
+
+button:hover, input[type="submit"]:hover {
+  box-sizing: border-box;
+  box-shadow: inset 0px 0px 0px 0.5px #818181;
+  cursor: pointer; }
+
+#search-bar > a,
+#magn-glass {
+  padding: 0 8px; }
+
+#search-bar:hover,
+#search-bar:focus {
+  background-color: #313235;
+  border: 1px solid #313235; }
+
+#search-bar:focus {
+  box-shadow: none;
+  --webkit-appearance: none; }
+
+footer {
+  width: 100%;
+  background-color: #141414; }
+  footer * {
+    font-size: 14px; }
+  footer *,
+  footer a:hover {
+    color: #909294; }
+  footer #main-footer {
+    height: 46px;
+    padding: 0px 20px;
+    display: flex;
+    flex-wrap: none;
+    justify-content: space-between; }
+
+footer:has(#main-footer) > div:first-child {
+  height: 48px;
+  box-sizing: border-box;
+  padding: 15px 30px;
+  border-bottom: 1px solid #3a3a3a; }
+
+#main-footer > .sub-main > * {
+  padding: 15px; }
+
+body:has(#advanced) {
+  width: 100%;
+  padding: 0;
+  margin: 0; }
+
+body:has(#advanced) > main#advanced {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  body:has(#advanced) > main#advanced .adv-title {
+    width: 100%;
+    font-size: 20px;
+    color: #fd7676;
+    padding-bottom: 20px;
+    padding-left: 50px; }
+  body:has(#advanced) > main#advanced .adv-title, body:has(#advanced) > main#advanced .inputs {
+    border-bottom: 1px solid #535353; }
+  body:has(#advanced) > main#advanced .inputs {
+    align-self: flex-start;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    margin-left: 50px;
+    width: 60%;
+    justify-content: start; }
+    body:has(#advanced) > main#advanced .inputs #specs {
+      padding: 0;
+      margin: 0;
+      width: 180px; }
+      body:has(#advanced) > main#advanced .inputs #specs * {
+        width: 180px;
+        height: 42px;
+        justify-content: baseline; }
+      body:has(#advanced) > main#advanced .inputs #specs :first-child {
+        font-size: 16px; }
+      body:has(#advanced) > main#advanced .inputs #specs *:not(:first-child) > * {
+        font-size: 13px;
+        color: #bdc1c6; }
+    body:has(#advanced) > main#advanced .inputs #inputs {
+      padding: 0;
+      padding-top: 41px;
+      width: 50%; }
+      body:has(#advanced) > main#advanced .inputs #inputs * {
+        height: 29px; }
+      body:has(#advanced) > main#advanced .inputs #inputs [type="text"] {
+        background-color: transparent;
+        border: 1px solid #5f6368;
+        padding: 1px 8px;
+        margin: 0;
+        width: 100%;
+        font-size: 13px;
+        color: #b4b6b8 !important; }
+      body:has(#advanced) > main#advanced .inputs #inputs [type="text"]:not(:last-of-type) {
+        margin-bottom: 12px; }
+      body:has(#advanced) > main#advanced .inputs #inputs [type="text"]:last-of-type {
+        margin-bottom: 22px; }
+      body:has(#advanced) > main#advanced .inputs #inputs input:not(:first-child):not(:last-child):focus {
+        color: #b4b6b8 !important;
+        caret-color: #b4b6b8;
+        outline: none;
+        border: none;
+        --webkit-appearance: none!important;
+        border: 1px solid #8ab4f8; }
+      body:has(#advanced) > main#advanced .inputs #inputs #a-search {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        margin-bottom: 10px; }
+        body:has(#advanced) > main#advanced .inputs #inputs #a-search [type="submit"] {
+          box-sizing: border-box;
+          padding: 0 12px 0 12px;
+          width: 120px;
+          height: 32px;
+          font-size: 11px;
+          cursor: default;
+          text-align: center;
+          font-weight: bold;
+          margin: 0;
+          color: black;
+          background-color: #8ab4f8; }
+        body:has(#advanced) > main#advanced .inputs #inputs #a-search [type="submit"], body:has(#advanced) > main#advanced .inputs #inputs #a-search [type="submit"]:hover, body:has(#advanced) > main#advanced .inputs #inputs #a-search [type="submit"]:active {
+          border: none;
+          border-radius: 2px;
+          box-shadow: none; }
+        body:has(#advanced) > main#advanced .inputs #inputs #a-search [type="submit"]:hover, body:has(#advanced) > main#advanced .inputs #inputs #a-search [type="submit"]:active {
+          background-color: #aecdff; }
+    body:has(#advanced) > main#advanced .inputs #inputs > #hide,
+    body:has(#advanced) > main#advanced .inputs #inputs > #hide:hover {
+      cursor: default;
+      border: none;
+      background-color: transparent;
+      pointer-events: none; }
+  body:has(#advanced) > main#advanced #instructions {
+    margin: 0;
+    padding: 0;
+    width: fill;
+    margin-right: 10.5px; }
+    body:has(#advanced) > main#advanced #instructions * {
+      width: 100%; }
+    body:has(#advanced) > main#advanced #instructions :first-child {
+      height: 42px;
+      margin: none;
+      font-size: 13px;
+      font-weight: bold; }
+    body:has(#advanced) > main#advanced #instructions *:not(:first-child) {
+      height: 29px;
+      font-weight: normal;
+      font-size: 11px;
+      color: #9d9fa1;
+      border: none;
+      margin: auto; }
+    body:has(#advanced) > main#advanced #instructions .rest {
+      margin-left: 12px;
+      margin-bottom: 12px;
+      line-height: 12px; }
+    body:has(#advanced) > main#advanced #instructions .rest:not(:last-of-type) {
+      padding-top: 8px; }
+    body:has(#advanced) > main#advanced #instructions .rest:last-of-type {
+      padding-top: 3.5px; }
+    body:has(#advanced) > main#advanced #instructions .mono {
+      font-family: monospace, monospace;
+      font-size: 11px;
+      padding: 0;
+      font-weight: normal;
+      color: #dadce0; }
+
+footer:has(#main-footer-adv-search) > * {
+  height: fit-content;
+  padding: 10px 50px;
+  border-top: 1px solid #3a3a3a; }
+
+#main-footer-adv-search > .sub-main > :nth-child(2),
+#main-footer-adv-search > .sub-main > :nth-child(3) {
+  padding-left: 30px; }
+
+#advanced-search {
+  padding-left: 50px; }
+
+/*# sourceMappingURL=styles.css.map */
