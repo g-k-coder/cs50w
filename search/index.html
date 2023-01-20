@@ -1,4 +1,4 @@
-<!-- I'm using Dark Theme for both Google Chrome and Google, so I have written CSS accordingly. -->
+<!-- I am using Dark Theme for both Google Chrome and Google, so I have written CSS accordingly. -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,10 +16,9 @@
         <title>Google Search</title>
     </head>
     <body>
-        
         <nav>
             <ul>
-                <li><a href="images_search.html">Images Search</a></li>
+                <li><a href="images_search.html">Image Search</a></li>
                 <li><a href="advanced_search.html">Advanced Search</a></li>
             </ul>
         </nav>
@@ -28,23 +27,20 @@
             <h2 class="row mb-3" id="logo">
                 <img src="images/google.png" alt="Google" height="150px">
             </h2>
-            <form action="https://www.google.com/search" class="mt-2" >
+            <form action="https://www.google.com/search" class="mt-2">
                 <div class="search-bar row" id="search-bar">
                     <img id="search-icon" src="images/search.png" class="mt-auto mb-auto col-1 w-auto" alt="Search" height="17px">
-                    <input class="row form-control col-auto" type="text" name="q" autocomplete="off">
-                    <!-- Add text on hover and modify it -->
+                    <input class="row form-control col-auto" type="text" name="q" autocomplete="off" autofocus title="Search">
                     <a title="Search by voice" class="mt-auto mb-auto mr-0 ml-0 col-1 w-auto" href="#"><img src="images/voice.png" alt="Search by voice" height="24px"></a>
                     <a title="Search by image" class="mt-auto mb-auto mr-0 ml-0 w-auto col-1" href="images_search.html"><img src="images/image.png" alt="Search by image" height="24px"></a>
                 </div>
                 <div class="container" id="searches">
-                    <input class="col" type="submit" value="Google Search">
-                    <input class="col" name="btnI" type="submit" value="I'm Feeling Lucky">
+                    <input type="submit" value="Google Search">
+                    <input name="btnI" type="submit" value="I'm Feeling Lucky">
                 </div>
-
             </form>
         </main>
 
-        <!-- TODO - Add footer -->
         <footer class="mt-auto">
             <div class="text-start mt-auto mb-auto">
                 Location
@@ -59,7 +55,6 @@
                 <div class="sub-main mt-auto mb-auto">
                     <a href="https://policies.google.com/privacy?hl=en-HR&fg=1">Privacy</a>
                     <a href="https://policies.google.com/terms?hl=en-HR&fg=1">Terms</a>
-                    <!-- TODO - Add Settings button features -->
                     <a href="#">Settings</a>
                 </div>
             </div>
