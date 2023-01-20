@@ -115,8 +115,7 @@ button:hover, input[type="submit"]:hover {
   box-shadow: inset 0px 0px 0px 0.5px #818181;
   cursor: pointer; }
 
-#search-bar > a,
-#magn-glass {
+#search-bar > a {
   padding: 0 8px; }
 
 #search-bar:hover,
@@ -210,7 +209,7 @@ body:has(#advanced) > main#advanced {
         margin-bottom: 12px; }
       body:has(#advanced) > main#advanced .inputs #inputs [type="text"]:last-of-type {
         margin-bottom: 22px; }
-      body:has(#advanced) > main#advanced .inputs #inputs input:not(:first-child):not(:last-child):focus {
+      body:has(#advanced) > main#advanced .inputs #inputs input:not(:last-child):focus {
         color: #b4b6b8 !important;
         caret-color: #b4b6b8;
         outline: none;
