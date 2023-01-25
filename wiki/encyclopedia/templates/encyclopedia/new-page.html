@@ -1,0 +1,15 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body %}
+    <form class="container column ml-1" method="post">
+        {% csrf_token %}
+        <input type="text" name='title' class="form-control mb-2 border border-info" placeholder="Entry title" required>
+        <textarea class="form-control mb-3 border border-info" name="content" id="txt-area" cols="20" rows="25" resizable="false" placeholder="Markdown content for the entry page" required></textarea>
+        <input class="mt-2 mb-0 form-control btn-outline-primary" type="submit" name="save" value="Save">
+    </form>
+
+{% endblock %}

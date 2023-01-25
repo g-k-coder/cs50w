@@ -1,0 +1,24 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search results
+{% endblock %}
+
+{% block body %}
+    <h1>Search results for "{{title}}"</h1>
+
+    {% if match %}
+        <ul class="mt-4">
+            {% for entry in entries %}
+                <li class="mb-2"><a href="wiki/{{entry}}">{{ entry }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="mt-4 ml-3">
+            {% for entry in entries %}
+                {{ entry }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Error 404
+{% endblock %}
+
+{% block body %}
+    {% if error_message %}
+        <h1>Error</h1>
+
+        <br><br><br><br>
+
+        <h4 class="ml-4">{{error_message}}</h4>
+    {% else %}
+        <h1>Error 404</h1>
+
+        <br><br><br><br>
+
+        <h3>Requested page was not found.</h3>
+    {% endif %}
+{% endblock %}

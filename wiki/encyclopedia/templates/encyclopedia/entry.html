@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% comment %} Dynamic content based on Markdown file {% endcomment %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+    <form action="/edit-page.html">
+        <input type="hidden" name="title" value="{{title}}">
+        <button class='btn btn-primary' type="submit">Edit Page</button>
+    </form>
+    {{ content | safe }}
+{% endblock %}
+
