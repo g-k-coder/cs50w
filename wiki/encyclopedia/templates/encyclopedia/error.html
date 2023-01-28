@@ -5,17 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    {% if error_message %}
         <h1>Error</h1>
 
         <br><br><br><br>
 
-        <h4 class="ml-4">{{error_message}}</h4>
-    {% else %}
-        <h1>Error 404</h1>
+        <h3>Cause of this error could be one of the reasons listed below:
 
-        <br><br><br><br>
-
-        <h3>Requested page was not found.</h3>
-    {% endif %}
+            <br><br>
+        <ul>
+            <li>Requested page was not found.</li>
+            <br>
+            <li>Entry with that title already exists.</li>
+        </ul>
 {% endblock %}

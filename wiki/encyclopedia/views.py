@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from markdown2 import Markdown
-from django import forms
 import random
 
 from . import util
@@ -49,17 +48,17 @@ def search(request, title):
 
 def entry(request, title):
     if request.GET.get('q'):
-        return search(request, request.GET.get('q')) 
+        return search(request, request.GET.get('q'))
     # Check if there is an entry with the given title
     # If so, render entry page
-    elif util.get_entry(title) is not None:
+    elif request.method == 'GET' and title in util.list_entries():
         return render(request, "encyclopedia/entry.html", {
             "title": title,
             "content": Markdown().convert(util.get_entry(title))
         })
     # Otherwise, display error page
     else:
-        return render(request, "encyclopedia/error.html")
+        return HttpResponseRedirect("/error.html")
     
 
 # TODO - Create New Page
@@ -70,26 +69,21 @@ def newpage(request):
     elif request.method == "GET":
         return render(request, "encyclopedia/new-page.html")
     
-    # PRG => POST redirect GET, lest to submit the same form multiple times
     
     title = request.POST.get('title')
     # Check if there's an entry by that title 
     if title in util.list_entries():
-        return render(request, "encyclopedia/error.html", {
-            "error_message": 'Entry with that title already exists.'
-        })
+        return HttpResponseRedirect("/error.html")
     
     content = request.POST.get('content')
     saved = request.POST.get('save')
     
     if content and saved:
         util.save_entry(title, content)
-        
-    return render(request, "encyclopedia/entry.html", {
-            "title": title,
-            "content": Markdown().convert(util.get_entry(title))
-        })
     
+    # PRG => POST redirect GET, lest to submit the same form multiple times
+    return HttpResponseRedirect(f"/wiki/{title}")
+
 def editpage(request):
     title = request.GET.get('title')
     
@@ -107,18 +101,14 @@ def editpage(request):
     
     if content and saved:
         util.save_entry(title, content)
-        
-    return render(request, "encyclopedia/entry.html", {
-            "title": title,
-            "content": Markdown().convert(util.get_entry(title))
-        })
-
-
-# TODO - Random Page
-def randompage(request):
-    random_page = random.choice(util.list_entries())
+        return HttpResponseRedirect(f"/wiki/{title}")
     
-    return render(request, "encyclopedia/entry.html", {
-            "title": random_page,
-            "content": Markdown().convert(util.get_entry(random_page))
-        })
+
+def error(request):
+    if request.GET.get('q'):
+        return search(request, request.GET.get('q'))
+    
+    return render(request, "encyclopedia/error.html")
+
+def randompage(request):
+    return HttpResponseRedirect(f"/wiki/{random.choice(util.list_entries())}")
