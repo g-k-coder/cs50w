@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2 class="title mt-3 mb-5">Listings by @{{user.username}}</h2>
+
+    <div id="listings">
+        {% for listing in listings %}
+            {% if user.is_authenticated %}
+                <div class="listing" onclick="location.href='/listing/{{listing.id}}/{{user.id}}'">
+            {% else %}
+                <div class="listing" onclick="location.href='/listing/{{listing.id}}'">
+            {% endif %}
+                    <div class="listing-image">
+                    <img src="{{ listing.picture.url }}" alt="{{listing.title}}" loading="lazy">
+                </div>
+                <div class="listing-info">
+                    <div class="title-n-time">
+                        {% if listing.closed %}
+                            <h3>{{listing.title}} [CLOSED]</h3>
+                        {% else %}
+                            <h3>{{listing.title}}</h3>
+                        {% endif %}
+                        <div><a href="/category/{{listing.category}}">{{listing.category}}</a></div>
+                        <div><h5>Price: ${{listing.price}}</h5></div>
+                        <div>Listing by {{listing.user.first_name}} {{listing.user.last_name}}  @{{listing.user.username}}</div>
+                        <div>Created on {{listing.date}}</div>
+                        <hr>
+                    </div>
+                    <div class="description">
+                        {{listing.description}}
+                    </div>
+                </div>
+                </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

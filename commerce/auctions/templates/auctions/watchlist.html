@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2 class="title mt-3 mb-5">Watchlist</h2>
+
+    {% if listings.count and user.is_authenticated %}
+        <div id="listings">
+            {% for listing in listings %}
+                        <div class="listing" onclick="location.href='/listing/{{listing.listing.id}}/{{user.id}}'">
+                                <div class="listing-image">
+                                <img src="{{ listing.listing.picture.url }}" alt="{{listing.listing.title}}" loading="lazy">
+                            </div>
+                            <div class="listing-info">
+                                <div class="title-n-time">
+                                    <h3>{{listing.listing.title}}</h3>
+                                    <div><a href="/category/{{listing.listing.category}}">{{listing.listing.category}}</a></div>
+                                    <div><h5>Price: ${{listing.listing.price}}</h5></div>
+                                    <div>Listing by {{listing.listing.user.first_name}} {{listing.listing.user.last_name}}  @{{listing.listing.user.username}}</div>
+                                    <div>Created on {{listing.listing.date}}</div>
+                                    {% if closed %}
+                                        <div>Sold to {{listing.listing.sold_to.first_name}} {{listing.listing.sold_to.last_name}}  @{{listing.listing.sold_to.username}}</div>
+                                    {% endif %}
+                                    <hr>
+                                </div>
+                                <div class="description">
+                                    {{listing.listing.description}}
+                                </div>
+                            </div>
+                        </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="error">
+            <h3>No listings on the watchlist.</h3>
+        </div>
+    {% endif %}
+
+{% endblock %}

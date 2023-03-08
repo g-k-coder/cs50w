@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -118,5 +119,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+STATIC_ROOT= os.path.join(BASE_DIR,'auctions/static/auctions')
 STATIC_URL = '/static/'
+
+# Non-static images, i.e., images uploaded by the user such as profile and listing images
+# https://docs.djangoproject.com/en/4.1/howto/static-files/#serving-files-uploaded-by-a-user-during-development
+MEDIA_ROOT = os.path.join(BASE_DIR, 'auctions/media')
+MEDIA_URL = 'auctions/media/'
+
+# https://stackoverflow.com/questions/61869169/the-real-difference-between-media-root-media-files-and-static-root-static-fil#:~:text=Whereas%2C%20MEDIA_URL%20and%20MEDIA_ROOT%20are%20used%20to%20serve%20the%20media%20files%20uploaded%20by%20a%20user.

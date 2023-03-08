@@ -1,0 +1,131 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <main id="body-listing">
+        <div class="listing-top">
+            <h1 class="listing-page">Listing: {{listing.title}}</h1>
+            {% if user.id == listing.user.id and not listing.closed %}
+                <form class="close-listing-btn" action="/listing/{{listing.id}}/{{user.id}}">
+                    <i class="fa-regular fa-circle-xmark"></i>
+                    <input type="hidden" name="close" value="True">
+                    <input type="submit" value="Close Listing"> 
+                </form>
+            {% endif %}
+        </div>
+
+
+        <div id="img-desc">
+            <div id="list-img-div">
+                <img id="list-img" src="{{listing.picture.url}}" alt="Image of {{listing.title}}">
+            </div>
+    
+            <div id="details">
+                <div class="details contain">
+                    <h4>Details</h4>
+                    <ul>
+                        <li>Seller: <a href="/profiles/{{listing.user.username}}">{{listing.user.first_name}} {{listing.user.last_name}} (@{{listing.user.username}})</a></li>
+                        <li>Category: <a href="/category/{{listing.category}}">{{listing.category}}</a></li>
+                        {% if listing.closed %}
+                            <li>Sold to: <a href="/profiles/{{listing.sold_to.username}}">{{listing.sold_to.first_name}} {{listing.sold_to.last_name}} (@{{listing.sold_to.username}})</a></li>
+                        {% endif %}
+                    </ul>
+                    {% if user.is_authenticated and not listing.closed %}
+                        <form action="/listing/{{listing.id}}/{{user.id}}" method="post" id="watchlist">
+                            {% csrf_token %}
+                            {{ watchlist_form }}
+                            {% if check_watchlist %}
+                                <input type="submit" class='btn' form="watchlist" value="Remove from the watchlist">
+                            {% else %}
+                                <input type="submit" class='btn' form="watchlist" value="Add to watchlist">
+                            {% endif %}
+                        </form>
+                    {% endif %}
+                </div>
+
+                <div class="description contain">
+                    <h4>Description</h4>
+                    <div class="desc-content">{{listing.description}}</div>
+                </div>
+
+                <div class="price contain">
+                    {% if not listing.closed %}
+                        <h3>Current Price: ${{listing.price}}</h3>
+                    {% else %}
+                        <h3>Sold at ${{listing.price}}.</h3>
+                    {% endif %}
+                    <div class="place-bid">
+                        {% if not listing.closed %}
+                            {{Num_bids}} bid(s) so far. 
+                            {% if user.is_authenticated %}
+                                {% if user.id == current_bid.user.id %} 
+                                    Your bid is the current bid. 
+                                {% elif listing.user.id != user.id %}
+                                    <form action="/listing/{{listing.id}}/{{user.id}}" method="post" id="place_bid">
+                                        {% csrf_token %}
+                                        {{place_bid}}
+                                        {{ form.as_p }} 
+                                        <input type="submit" class='btn' form="place_bid" value="Place bid">
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div id="comment-section">
+                    <h4>Comments</h4>
+                    {% if user.is_authenticated and not listing.closed %}
+                        <style>
+                            textarea {
+                                resize: none;
+                                padding: 4px;
+                                padding-left: 10px;
+                                margin-right: 20%;
+                                border-radius: 5px;
+                            }
+
+                            form {
+                                margin-bottom: 30px;
+                                display: flex;
+                                flex-direction: column;
+                            }
+
+                            form * {
+                                margin-bottom: 10px;
+                            }
+                        </style>
+
+                        <div class="avatar-username">
+                            Comment as: 
+                            <img src="{{user.picture.url}}" alt="Profile avatar">
+                            <span>{{user.username}}</span>
+                        </div>
+                        
+                        <form action="/listing/{{listing.id}}/{{user.id}}" method="post" id="add_comment">
+                            {% csrf_token %}
+                            {{ add_comment }}
+                            <input type="submit" class='btn' form="add_comment" value="Comment">
+                        </form>
+                    {% endif %}
+
+                    {% if comments %}
+                        {% for comment in comments%}
+                            <div class="comment">
+                                <div class="profile-detail">
+                                    <img src="{{comment.user.picture.url}}" class="profile-picture" alt="Profile avatar" height="45px">
+                                    <span><strong>{{comment.user.username}}</strong> - {{comment.date}}</span>
+                                </div>
+                                <div class="comment-content">
+                                    {{comment.comment}}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h5 id="no-comment">No comments</h5>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    {% if categories %}
+        <h2 class="mt-3 mb-5" id="categories">Categories</h2>
+        <div class="form">
+            <form method="post">
+                {% csrf_token %}        
+                {% for category in categories %}
+                    <input type="submit" class="mb-4 btn" value="{{ category.1 }}" formaction="{% url 'category' category.1 %}">
+                {% endfor %}
+            </form>
+        </div>
+    {% else %}
+        <h2 class="mt-3 mb-5" id="categories">{{ category }}</h2>
+
+        {% if error %}
+            <div class="error">
+                <h3>{{error}}</h3>
+            </div>
+        {% else %}
+            <div id="listings">
+                {% for listing in listings %}
+                    {% if not listing.closed %}
+                        {% if user.is_authenticated %}
+                            <div class="listing" onclick="location.href='/listing/{{listing.id}}/{{user.id}}'">
+                        {% else %}
+                                <div class="listing" onclick="location.href='/listing/{{listing.id}}'">
+                        {% endif %}
+                                    <div class="listing-image">
+                                    <img src="{{ listing.picture.url }}" alt="{{listing.title}}" loading="lazy">
+                                </div>
+                                <div class="listing-info">
+                                    <div class="title-n-time">
+                                        <h3>{{listing.title}}</h3>
+                                        <div><a href="/category/{{listing.category}}">{{listing.category}}</a></div>
+                                        <div><h5>Price: ${{listing.price}}</h5></div>
+                                        <div>Listing by {{listing.user.first_name}} {{listing.user.last_name}}  @{{listing.user.username}}</div>
+                                        <div>Created on {{listing.date}}</div>
+                                        <hr>
+                                    </div>
+                                    <div class="description">
+                                        {{listing.description}}
+                                    </div>
+                                    </div>
+                                </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
