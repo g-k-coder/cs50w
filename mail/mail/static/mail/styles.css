@@ -1,0 +1,121 @@
+/* Google font - https://fonts.google.com/specimen/Ubuntu */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&family=Roboto+Mono:wght@300&family=Ubuntu&display=swap');
+
+::-webkit-scrollbar {
+    width: 8px; 
+    position: relative;
+    border-radius: inherit;
+}   
+
+::-webkit-scrollbar-track {
+    margin-left: calc(100vw - 100%);    
+    margin-right: 2px;
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 1em;
+    background: #677ae4;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: black;
+}
+    
+span {
+    margin: auto;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#email {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 3px;
+    grid-row-gap: 0px;
+}
+
+#email > * {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+#email:hover {
+    cursor: pointer;
+    box-shadow: 6px 166px 216px 184px rgba(166,183,242,0.3) inset;
+    -webkit-box-shadow: 6px 166px 216px 184px rgba(166,183,242,0.3) inset;
+    -moz-box-shadow: 6px 166px 216px 184px rgba(166,183,242,0.3) inset;
+    color: white;    
+}
+
+.form-control:focus {   
+    box-shadow: 0 0 0 0.2rem #a0aeff6c;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100vh;  
+    width: 99vw;
+}
+
+nav,
+footer {
+    background: white;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    margin-bottom: 30px;
+    z-index: 2;
+}
+
+#info-recipients {
+    margin-top: 0.6rem;
+}
+
+nav hr {
+    box-shadow: 0 0 15px 20px white;
+}
+
+.material-symbols-outlined {
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+#main {
+    margin-bottom: 30px;
+}
+
+#compose-body {
+    min-height: 400px;
+}
+
+#compose-body,
+#display-body {
+    cursor: auto;
+    resize: none;   
+    white-space: pre-wrap;
+}
+
+textarea::-webkit-scrollbar {
+    z-index: -1;
+}
+
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    position: relative;
+}
+
