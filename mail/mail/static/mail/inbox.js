@@ -1,24 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
-
+  // Save user's email to the local browser storage
+  sessionStorage.setItem('username', document.querySelector('h2').innerHTML);
+  
   // Use buttons to toggle between views
-  document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
-  document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
-  document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
-  document.querySelector('#compose').addEventListener('click', compose_email);
+  // Add event handler for each of the nav bar buttons
+  document.querySelectorAll('nav > button').forEach(button => {
+    button.onclick = () => {
+      document.querySelectorAll('nav > button').forEach(btn => btn.className = "btn btn-sm btn-outline-primary");
+      button.className = "btn btn-sm btn-primary";
+      const id = button.getAttribute('id');
+      document.title = id.charAt(0).toUpperCase()+id.slice(1).toLowerCase();
+      window.history.pushState({}, '', `#${document.title}`);
+      console.log(location.href);
+      // Load appropriate view
+      if (id === 'compose') compose_email();
+      else if (id === 'archived') load_mailbox('archive');
+      else load_mailbox(id);
+    }
+  });
 
-  // By default, load the inbox
-  load_mailbox('inbox');
+  window.onhashchange = () => document.getElementById(location.href.split('#')[1].toLowerCase()).click();
+  
+  location.href.split('#')[1] ? document.getElementById(window.location.href.split('#')[1].toLowerCase()).click() : document.querySelector("#inbox").click();
 });
 
-// Edit CSS box shadow for navbar button
-function setBoxShadow() {
-  document.querySelectorAll('nav > button').forEach(btn => btn.className = "btn btn-sm btn-outline-primary");
-}
-
 function compose_email() {
-  setBoxShadow();
-  document.querySelector('#compose').className = "btn btn-sm btn-primary";
-
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#message-view').style.display = 'none';
@@ -52,7 +58,6 @@ function compose_email() {
   document.getElementById("info-recipients").style.color = "#495057";
   document.querySelector("#info-recipients").style.fontSize = "15px";
 
-  
   const fields = document.querySelectorAll('[data-uniform="compose"]');
   
   // Get the list of all recipients, and save the valid ones in an array
@@ -158,7 +163,6 @@ function compose_email() {
 
 // GET /emails/<str:mailbox>
 function load_mailbox(mailbox) {
-  setBoxShadow();
   document.querySelector('#emails-view').innerHTML = '';
 
   if (mailbox === 'archive') {
@@ -179,9 +183,6 @@ function load_mailbox(mailbox) {
   fetch(`/emails/${mailbox}`)
   .then(response => response.json())
   .then(emails => {
-      // Print emails
-      console.table(emails);
-
       /* 
         {
         "id": 100,
@@ -277,7 +278,7 @@ function load_mailbox(mailbox) {
             const view = document.querySelector('#message-view');
             
             const header = document.createElement('div');
-            
+
             // From: sender@example.com
             const from = document.createElement('p');
             from.innerHTML = 'From: ';
