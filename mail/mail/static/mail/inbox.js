@@ -10,18 +10,17 @@ document.addEventListener('DOMContentLoaded', function() {
       button.className = "btn btn-sm btn-primary";
       const id = button.getAttribute('id');
       document.title = id.charAt(0).toUpperCase()+id.slice(1).toLowerCase();
-      window.history.pushState({}, '', `#${document.title}`);
-      console.log(location.href);
+      window.history.pushState({section: id}, '', `#${id}`);
+      console.table(location.href, history.state.section);
       // Load appropriate view
       if (id === 'compose') compose_email();
-      else if (id === 'archived') load_mailbox('archive');
       else load_mailbox(id);
     }
   });
 
-  window.onhashchange = () => document.getElementById(location.href.split('#')[1].toLowerCase()).click();
+  window.onhashchange = () => document.getElementById(history.state.section).click();
   
-  location.href.split('#')[1] ? document.getElementById(window.location.href.split('#')[1].toLowerCase()).click() : document.querySelector("#inbox").click();
+  document.querySelector('#inbox').click();
 });
 
 function compose_email() {
@@ -165,11 +164,7 @@ function compose_email() {
 function load_mailbox(mailbox) {
   document.querySelector('#emails-view').innerHTML = '';
 
-  if (mailbox === 'archive') {
-    document.querySelector('#archived').className = "btn btn-sm btn-primary";
-  } else { 
-    document.querySelector(`#${mailbox}`).className = "btn btn-sm btn-primary"
-  }
+  document.querySelector(`#${mailbox}`).className = "btn btn-sm btn-primary"
 
   // Show the mailbox and hide other views
   document.querySelector('#message-view').style.display = 'none';
