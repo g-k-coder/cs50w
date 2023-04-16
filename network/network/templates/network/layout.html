@@ -1,0 +1,146 @@
+{% load static %}
+{% load compress %}
+{% load custom_tags %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script defer
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                crossorigin="anonymous"></script>
+        <script defer
+                src="{% static 'network/js/script.js' %}"
+                type="text/javascript"></script>
+        {% comment %}* Google Icons {% endcomment %}
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+              rel="stylesheet">
+        <title>
+            {% block title %}Social Network{% endblock %}
+        </title>
+        {% comment %} link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">{% endcomment %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+              rel="stylesheet"
+              integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+              crossorigin="anonymous">
+        {% comment %}*  SCSS - CSS {% endcomment %}
+        {% compress css %}
+            <link type='text/x-scss'
+                  href="{% static 'network/css/styles.scss' %}"
+                  rel="stylesheet"
+                  media="screen">
+        {% endcompress %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-primary sticky-top"
+             data-bs-theme="dark">
+            <a class="navbar-brand" href="/">Network</a>
+            <div>
+                <ul class="navbar-nav mr-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' user.id %}"><strong>{{ user.username }}</strong></a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}" id="allPosts">All Posts</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'follow_posts' user.id %}">Following</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"id='logout'  href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="body">
+        {% block body %}{% endblock %}
+    </div>
+    <div id="posts">
+        {% for post in posts %}
+            <div class="post" data-id='{{ post.id }}'>
+                <p class="postHeader">
+                    <span class='postTime'>{{ post.time|datetime }}</span>
+                    <span class="postUser" align='center'><a class='btn btn-info rounded-circle'
+   href="{% url 'profile' post.user.id %}"><em>@{{ post.user.username }}</a></em></span>
+                    {% if user.uuid == post.user.uuid %}
+                        <span type="button"
+                              text-align="center"
+                              class="postEdit btn btn-light"
+                              data-id='{{ post.id }}'
+                              data-state='Edit'>
+                            <span class="material-symbols-outlined">edit_note</span>    Edit
+                        </span>
+                    {% else %}
+                        <span class='postEdit' text-align='center'></span>
+                    {% endif %}
+                </p>
+                <hr>
+                <div class="postContent" id="id{{ post.id }}">{{ post.content|safe|linebreaks }}</div>
+                {% if user.is_authenticated %}
+                    <button class='postLike btn btn-info rounded-pill mt-5' data-liked="{% check_like user.id post.id %}" data-post={{ post.id }} data-user={{ user.id }}>
+                        <span class='material-symbols-outlined'
+                              data-liked="{% check_like user.id post.id %}">thumb_up</span>
+                    {% else %}
+                        <button class='postLike btn btn-info rounded-pill' disabled>
+                            <span class='material-symbols-outlined'>thumb_up</span>
+                        {% endif %}
+                        <span class="numLikes">{{ post.id|get_likes }}</span>
+                    </button>
+                </div>
+            {% endfor %}
+            {% if pages|length >= 2 %}
+                <ul class="pagination" align='center'>
+                    {% if posts.has_previous %}
+                        <li class="page-item" name='icon1'>
+                            <a class="page-link"
+                               href="?page={{ posts.previous_page_number }}"
+                               aria-label="Previous">
+                                <span aria-hidden="true" disabled>&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for page in pages %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if posts.has_next %}
+                        <li class="page-item" name='icon2'>
+                            <a class="page-link"
+                               href="?page={{ posts.next_page_number }}"
+                               aria-label="Next">
+                                <span aria-hidden="true" disabled>&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+        {% comment %}
+            * Pagination: On any page that displays posts, posts should only be displayed 10 on a page. 
+            * If there are more than ten posts, a “Next” button should appear to take the user to the next page of posts (which should be older than the current page of posts). If not on the first page, 
+            * a “Previous” button should appear to take the user to the previous page of posts as well.
+
+            ? Django’s Paginator class may be helpful for implementing pagination on the back-end (in your Python code).
+            ? Bootstrap’s Pagination features may be helpful for displaying pages on the front-end (in your HTML).
+        {% endcomment %}
+        <footer class="mt-auto ml-auto mr-auto">
+            Gabriel Alfred Krupa &bullet; CS50's Web Programming with Python and JavaScript &bullet; Project 4 - Network
+        </footer>
+    </body>
+</html>

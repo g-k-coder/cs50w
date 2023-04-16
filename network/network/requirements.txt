@@ -1,0 +1,11 @@
+# Django cripsy forms
+# https://django-crispy-forms.readthedocs.io/en/latest/install.html
+pip install django-crispy-forms
+
+# Django crispy forms Bootstrap 5
+# https://pypi.org/project/crispy-bootstrap5/
+pip install crispy-bootstrap5
+
+# Django compressor
+# https://pypi.org/project/django-compressor/
+pip install django-compressor

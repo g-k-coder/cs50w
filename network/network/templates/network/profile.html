@@ -1,0 +1,57 @@
+{% extends "network/layout.html" %}
+{% load crispy_forms_tags %}
+{% load custom_tags %}
+{% block body %}
+  <div id="userInfo">
+    <p>
+      <span id="username"><strong>{{ profileUser.first_name }} {{ profileUser.last_name }}</strong
+        >
+        <br />
+        <em>@{{ profileUser.username }}</em></span
+          >
+        </p>
+        <div class="btn" id="posts">
+          Posts
+          <br />
+          <hr />
+          <span id="numPosts">{{ profileUser.id |get_posts }}</span>
+        </div>
+        <div class="btn" id="followers">
+          Followers
+          <br />
+          <hr />
+          <span id="numFers">{{ profileUser.id |get_followers }}</span>
+        </div>
+        <div class="btn" id="following">
+          Following
+          <br />
+          <hr />
+          <span id="numFow">{{ profileUser.id |get_following }}</span>
+        </div>
+        {% if user.is_authenticated and profileUser.username != user.username %}
+          <button class="btn btn-primary"
+                  id="follow"
+                  data-user="{{ profileUser.id }}"
+                  data-follower="{{ user.id }}">{{ followState }}</button>
+        {% else %}
+          <button class="btn btn-primary" id="followNot" disabled></button>
+        {% endif %}
+      </div>
+      <hr id="hr" />
+      <h3 align="center">{{ profileUser.username }}'s posts</h3>
+      
+      {% if not posts %}
+        No posts yet.
+      {% endif %}
+{% endblock %}
+        {% comment %} 
+* Profile Page: Clicking on a username should load that user’s profile page. 
+* This page should: 
+* 
+* Display the number of followers the user has, as well as the number of people that the user follows. 
+* Display all of the posts for that user, in reverse chronological order. 
+* For any other user who is signed in, * this page should also display a “Follow” or “Unfollow” button that will let the current user toggle whether or not they are 
+* following this user’s posts. * Note that this only applies to any “other” user: 
+
+? a user should not be able to follow themselves. 
+        {% endcomment %}
